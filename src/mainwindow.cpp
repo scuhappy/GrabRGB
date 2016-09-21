@@ -5,6 +5,7 @@
 #include<QScreen>
 #include<QPixmap>
 #include<QWindow>
+#include<QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainWindow)
@@ -14,18 +15,21 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowOpacity(0.1);
     QDesktopWidget* d=new QDesktopWidget();
     this->setGeometry(d->screenGeometry());
-    this->hide();
 
     m_CtrlDia = new ControlPanel();
-    connect(m_CtrlDia,SIGNAL(beginGrasp()),this,SLOT(show()));
-    connect(m_CtrlDia,SIGNAL(CloseProgram()),this,SLOT(close()));
-    m_CtrlDia->exec();
+    m_CtrlDia->init(this);
+     m_CtrlDia->show();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::showEvent(QShowEvent *)
+{
+
+}
+
 void MainWindow::mouseReleaseEvent(QMouseEvent *e)
 {
     if(!m_CtrlDia->isVisible())
@@ -36,6 +40,12 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *e)
         GetRGB(m_TarP);
     }
 }
+void MainWindow::ExitProgram()
+{
+    qDebug()<<"Exit app";
+    QApplication::exit();
+}
+
 void MainWindow::GetRGB(QPoint& p)
 {
     QScreen *screen =this->windowHandle()->screen();

@@ -19,10 +19,12 @@ public:
     void GetRGB(QPoint& p);
 protected:
     void mouseReleaseEvent(QMouseEvent *);
+    void showEvent(QShowEvent *);
 private:
     Ui::MainWindow *ui;
 public slots:
   //  void showPanel();
+    void ExitProgram();
 };
 
 #endif // MAINWINDOW_H

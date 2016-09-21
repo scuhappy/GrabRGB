@@ -6,12 +6,18 @@ ControlPanel::ControlPanel(QWidget *parent) :
     ui(new Ui::ControlPanel)
 {
     ui->setupUi(this);
+    this->setWindowFlags(Qt::FramelessWindowHint);
 }
 
 ControlPanel::~ControlPanel()
 {
     delete ui;
 }
+void ControlPanel::init(QWidget *wid)
+{
+    m_FullWid = wid;
+}
+
 void ControlPanel::SetPix(QPixmap &pix)
 {
     ui->IMGLabel->setPixmap(pix);
@@ -27,10 +33,11 @@ void ControlPanel::SetPix(QPixmap &pix)
 void ControlPanel::on_GraspBtn_clicked()
 {
     this->hide();
-    emit beginGrasp();
+    m_FullWid->show();
 }
 
 void ControlPanel::on_CloseBtn_clicked()
-{
+{    
     this->close();
+    QApplication::exit();
 }

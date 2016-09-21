@@ -15,6 +15,7 @@ public:
     explicit ControlPanel(QWidget *parent = 0);
     ~ControlPanel();
     void SetPix(QPixmap& pix);
+    void init(QWidget* fullWid);
 private slots:
     void on_GraspBtn_clicked();
 
@@ -22,9 +23,8 @@ private slots:
 
 private:
     Ui::ControlPanel *ui;
-signals:
-    void beginGrasp();
-    void CloseProgram();
+    QWidget* m_FullWid;
+
 };
 
 #endif // CONTROLPANEL_H
